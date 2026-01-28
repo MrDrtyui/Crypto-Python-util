@@ -14,7 +14,6 @@ cookie[89:109+1] = xor(cookie[89:109+1],
 for i in range(len(cookie)):
     print(f'Position {i:3d}\t', end='')
     flipped = cookie[:]
-    # флипаем у i-го байта младший бит — ксором на байт, у которого 1 только в младшем бите
     flipped[i] ^= 0b00000001
     res = sess.get("https://t-capybit-kdot8z7j.spbctf.org/funds",
                    cookies={"session": flipped.hex()})
