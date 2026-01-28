@@ -12,10 +12,10 @@ cookie[61:61+1] = xor(cookie[61:61+1], xor(b'2', b'5'))
 
 for i in range(len(cookie)):
     flipped = cookie[:]
-    flipped[i] ^= 0b11111111  # флипаем у i-го байта все биты
+    flipped[i] ^= 0b11111111
     res = sess.get("https://t-capybit-kdot8z7j.spbctf.org/funds",
                    cookies={"session": flipped.hex()})
-    # берём байт 0x** из сообщения декодера utf-8
+    
     leaked = res.text[res.text.find('0x'):][:4]
-    leaked = int(leaked, 16) ^ 0b11111111  # флипаем биты обратно
+    leaked = int(leaked, 16) ^ 0b11111111
     print(chr(leaked), end='', flush=True)
